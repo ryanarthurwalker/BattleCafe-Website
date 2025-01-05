@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BattleCafe Sign-up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>BattleCafe Tournament Sign-up</h1>
+
+        <!-- Admin Login Section -->
+        <div id="admin-login">
+            <h2>Admin Login</h2>
+            <input type="text" id="admin-id" placeholder="Enter Admin ID" required>
+            <input type="password" id="admin-password" placeholder="Enter Admin Password" required>
+            <button id="admin-login-button">Login</button>
+        </div>
+
+        <!-- Tournament Creation Form (Only for Admin) -->
+        <form id="create-tournament-form" style="display:none;">
+            <h2>Create a Tournament</h2>
+            <input type="text" id="tournament-name" placeholder="Tournament Name" required>
+            <input type="datetime-local" id="tournament-date" required>
+            <textarea id="tournament-description" placeholder="Tournament Description" rows="3" required></textarea>
+            <button type="submit">Create Tournament</button>
+        </form>
+
+        <!-- Sign-up Form (Visible to All Users) -->
+        <form id="sign-up-form" style="display:none;">
+            <h2>Join the Tournament</h2>
+            <p id="tournament-details"></p>
+            <input type="text" id="participant-name" placeholder="Enter your name" required>
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <h2>Participants List</h2>
+        <ul id="participants-list"></ul>
+
+        <button id="download-names" style="display:none;">Download List as .txt</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
