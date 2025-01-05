@@ -20,6 +20,17 @@ body {
     border-radius: 10px;
 }
 
+.admin-link {
+    font-size: 14px;
+    color: #ddd;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.admin-link:hover {
+    color: white;
+}
+
 input, textarea, button {
     display: block;
     margin: 10px auto;

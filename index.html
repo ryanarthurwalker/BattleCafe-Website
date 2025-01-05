@@ -9,13 +9,15 @@
 <body>
     <div class="container">
         <h1>BattleCafe Tournament Sign-up</h1>
+        <a href="#" id="admin-link" class="admin-link">Admin</a>
 
         <!-- Admin Login Section -->
-        <div id="admin-login">
+        <div id="admin-login" style="display:none;">
             <h2>Admin Login</h2>
             <input type="text" id="admin-id" placeholder="Enter Admin ID" required>
             <input type="password" id="admin-password" placeholder="Enter Admin Password" required>
             <button id="admin-login-button">Login</button>
+            <button id="close-admin-login">Close</button>
         </div>
 
         <!-- Tournament Creation Form (Only for Admin) -->
@@ -25,12 +27,13 @@
             <input type="datetime-local" id="tournament-date" required>
             <textarea id="tournament-description" placeholder="Tournament Description" rows="3" required></textarea>
             <button type="submit">Create Tournament</button>
+            <button type="button" id="remove-tournament-button">Remove Tournament</button>
         </form>
 
         <!-- Sign-up Form (Visible to All Users) -->
-        <form id="sign-up-form" style="display:none;">
+        <form id="sign-up-form">
             <h2>Join the Tournament</h2>
-            <p id="tournament-details"></p>
+            <p id="tournament-details">No tournament has been created yet.</p>
             <input type="text" id="participant-name" placeholder="Enter your name" required>
             <button type="submit">Sign Up</button>
         </form>
