@@ -42,8 +42,39 @@
         <ul id="participants-list"></ul>
 
         <button id="download-names" style="display:none;">Download List as .txt</button>
+
+        <!-- Leaderboard Section -->
+        <h2>Leaderboard</h2>
+        <table id="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Matches Played</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body"></tbody>
+        </table>
+
+        <!-- Player Match Reporting Section -->
+        <h2>Report a Match</h2>
+        <form id="player-report-form">
+            <label>Player 1:</label>
+            <input type="text" id="player1-report" placeholder="Enter your name (Player 1)" required>
+            <label>Player 2:</label>
+            <input type="text" id="player2-report" placeholder="Enter opponent's name (Player 2)" required>
+            <label>Score (Best of 5):</label>
+            <input type="text" id="player-score-report" placeholder="e.g., 3-2" required>
+            <button type="submit">Submit Match Report</button>
+        </form>
+
+        <!-- Pending Matches Section -->
+        <h2>Pending Matches</h2>
+        <ul id="pending-matches"></ul>
     </div>
 
+    <!-- Script at the end of body -->
     <script src="script.js"></script>
 </body>
 </html>

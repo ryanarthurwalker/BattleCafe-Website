@@ -118,3 +118,106 @@ downloadButton.addEventListener('click', () => {
     a.click();
     URL.revokeObjectURL(url);
 });
+
+let playerStats = {}; // Object to store points and matches played
+
+let pendingMatches = [];
+
+// Player Reporting Submission
+document.getElementById('player-report-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const player1 = document.getElementById('player1-report').value.trim();
+    const player2 = document.getElementById('player2-report').value.trim();
+    const score = document.getElementById('player-score-report').value.trim();
+
+    console.log("Match report submitted with values:", { player1, player2, score });
+
+    if (!player1 || !player2 || player1 === player2 || !/^\d-\d$/.test(score)) {
+        alert("Please enter valid names and a score format (e.g., 3-2).");
+        console.error("Invalid input for match reporting:", { player1, player2, score });
+        return;
+    }
+
+    const [player1Wins, player2Wins] = score.split('-').map(Number);
+    if (player1Wins > 3 || player2Wins > 3 || (player1Wins + player2Wins) > 5) {
+        alert("Invalid score. Best of 5 means max 3 wins for one player.");
+        console.error("Invalid score range for a best of 5:", { player1Wins, player2Wins });
+        return;
+    }
+
+    pendingMatches.push({ player1, player2, score });
+    console.log("Pending matches updated:", pendingMatches);
+    updatePendingMatches();
+    alert('Match reported successfully! Waiting for confirmation.');
+    document.getElementById('player-report-form').reset();
+});
+
+function updatePendingMatches() {
+    const pendingList = document.getElementById('pending-matches');
+    pendingList.innerHTML = '';
+
+    pendingMatches.forEach((match, index) => {
+        const { player1, player2, score } = match;
+        console.log(`Pending match ${index + 1}:`, { player1, player2, score });
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            ${player1} vs ${player2}: ${score}
+            <button onclick="confirmMatch(${index})">Confirm</button>
+            <button onclick="rejectMatch(${index})">Reject</button>
+        `;
+        pendingList.appendChild(listItem);
+    });
+}
+
+function confirmMatch(index) {
+    const match = pendingMatches[index];
+    console.log("Confirming match:", match);
+
+    const [player1Wins, player2Wins] = match.score.split('-').map(Number);
+    updatePlayerStats(match.player1, player1Wins, player1Wins > player2Wins);
+    updatePlayerStats(match.player2, player2Wins, player2Wins > player1Wins);
+
+    pendingMatches.splice(index, 1); // Remove match from pending list
+    console.log("Match confirmed. Remaining pending matches:", pendingMatches);
+    updatePendingMatches();
+    updateLeaderboard();
+}
+
+function rejectMatch(index) {
+    console.log(`Rejecting match at index ${index}`);
+    if (confirm('Are you sure you want to reject this match?')) {
+        pendingMatches.splice(index, 1); // Remove match
+        console.log("Match rejected. Remaining pending matches:", pendingMatches);
+        updatePendingMatches();
+    }
+}
+
+function updatePlayerStats(player, wins, isWinner) {
+    if (!playerStats[player]) {
+        playerStats[player] = { matchesPlayed: 0, points: 0 };
+        console.log(`New player added to stats: ${player}`);
+    }
+    playerStats[player].matchesPlayed++;
+    playerStats[player].points += wins; // +1 point per game won
+    if (isWinner) playerStats[player].points++; // +1 point for winning the series
+    console.log(`Updated stats for ${player}:`, playerStats[player]);
+}
+
+function updateLeaderboard() {
+    const leaderboardBody = document.getElementById('leaderboard-body');
+    leaderboardBody.innerHTML = '';
+
+    const sortedPlayers = Object.keys(playerStats).sort((a, b) => playerStats[b].points - playerStats[a].points);
+    console.log("Sorted leaderboard:", sortedPlayers);
+
+    sortedPlayers.forEach((player, index) => {
+        const { matchesPlayed, points } = playerStats[player];
+        const row = `<tr>
+            <td>${index + 1}</td>
+            <td>${player}</td>
+            <td>${matchesPlayed}</td>
+            <td>${points}</td>
+        </tr>`;
+        leaderboardBody.innerHTML += row;
+    });
+}
