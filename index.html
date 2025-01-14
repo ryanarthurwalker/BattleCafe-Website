@@ -30,6 +30,21 @@
             <button type="button" id="remove-tournament-button">Remove Tournament</button>
         </form>
 
+        <!-- Schedule Section (Admin Only) -->
+<h2>Tournament Schedule</h2>
+<form id="create-schedule-form" style="display:none;">
+    <label>Week:</label>
+    <input type="number" id="week-number" placeholder="Enter Week Number" required>
+    <label>Date Range:</label>
+    <input type="text" id="date-range" placeholder="Enter Date Range (e.g., Jan 15–21)" required>
+    <label>Player 1:</label>
+    <input type="text" id="schedule-player1" placeholder="Enter Player 1" required>
+    <label>Player 2:</label>
+    <input type="text" id="schedule-player2" placeholder="Enter Player 2" required>
+    <button type="submit">Add Matchup</button>
+    <button onclick="clearSchedule()">Clear Schedule</button>
+</form>
+
         <!-- Sign-up Form (Visible to All Users) -->
         <form id="sign-up-form">
             <h2>Join the Tournament</h2>
@@ -56,6 +71,11 @@
             </thead>
             <tbody id="leaderboard-body"></tbody>
         </table>
+
+<h3>Weekly Schedule</h3>
+<div id="schedule-list">
+    <p>No schedule has been created yet.</p>
+</div>
 
         <!-- Player Match Reporting Section -->
         <h2>Report a Match</h2>

@@ -16,6 +16,7 @@ const downloadButton = document.getElementById('download-names');
 const removeTournamentButton = document.getElementById('remove-tournament-button');
 
 let participants = [];
+let schedule = {}; // Object to store schedule by weeks
 
 // Check localStorage for existing tournament data
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,6 +36,7 @@ closeAdminLoginButton.addEventListener('click', () => {
     adminLoginSection.style.display = 'none';
 });
 
+
 // Admin Login
 adminLoginButton.addEventListener('click', () => {
     const enteredId = adminIdInput.value.trim();
@@ -42,6 +44,7 @@ adminLoginButton.addEventListener('click', () => {
     if (enteredId === adminId && enteredPassword === adminPassword) {
         adminLoginSection.style.display = 'none'; // Hide admin login
         createTournamentForm.style.display = 'block'; // Show create tournament form
+        document.getElementById('create-schedule-form').style.display = 'block'; // Show schedule form
     } else {
         alert('Incorrect ID or password. Access denied.');
     }
@@ -219,5 +222,70 @@ function updateLeaderboard() {
             <td>${points}</td>
         </tr>`;
         leaderboardBody.innerHTML += row;
+    });
+}
+
+// Show schedule creation form when a tournament is created
+document.getElementById('create-tournament-form').addEventListener('submit', () => {
+    document.getElementById('create-schedule-form').style.display = 'block';
+});
+
+// Handle schedule creation
+document.getElementById('create-schedule-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const weekNumber = document.getElementById('week-number').value.trim();
+    const dateRange = document.getElementById('date-range').value.trim();
+    const player1 = document.getElementById('schedule-player1').value.trim();
+    const player2 = document.getElementById('schedule-player2').value.trim();
+
+    if (!weekNumber || !dateRange || !player1 || !player2 || player1 === player2) {
+        alert('Please enter valid inputs.');
+        return;
+    }
+
+    // Add matchup to the corresponding week
+    if (!schedule[weekNumber]) {
+        schedule[weekNumber] = { dateRange, matchups: [] };
+    }
+    schedule[weekNumber].matchups.push(`${player1} vs ${player2}`);
+
+    // Save the updated schedule to localStorage
+    localStorage.setItem('tournamentSchedule', JSON.stringify(schedule));
+
+    updateScheduleDisplay();
+    alert('Matchup added to the schedule!');
+    document.getElementById('create-schedule-form').reset();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const savedSchedule = JSON.parse(localStorage.getItem('tournamentSchedule'));
+    if (savedSchedule) {
+        schedule = savedSchedule; // Load saved schedule
+        updateScheduleDisplay();  // Display it on the page
+    }
+});
+
+function clearSchedule() {
+    if (confirm('Are you sure you want to clear the entire schedule?')) {
+        localStorage.removeItem('tournamentSchedule'); // Remove from localStorage
+        schedule = {}; // Reset the in-memory schedule
+        updateScheduleDisplay(); // Update the display
+    }
+}
+
+// Update schedule display for players
+function updateScheduleDisplay() {
+    const scheduleList = document.getElementById('schedule-list');
+    scheduleList.innerHTML = ''; // Clear existing schedule
+
+    const weeks = Object.keys(schedule).sort((a, b) => Number(a) - Number(b));
+    weeks.forEach((week) => {
+        const { dateRange, matchups } = schedule[week];
+        const weekDiv = document.createElement('div');
+        weekDiv.innerHTML = `
+            <h4>Week ${week}: ${dateRange}</h4>
+            <ul>${matchups.map(match => `<li>${match}</li>`).join('')}</ul>
+        `;
+        scheduleList.appendChild(weekDiv);
     });
 }

@@ -85,3 +85,19 @@ td {
 tr:nth-child(even) {
     background-color: #444;
 }
+
+#schedule-list div {
+    background-color: #333;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#schedule-list h4 {
+    color: #007bff;
+}
+
+#schedule-list li {
+    margin: 5px 0;
+    color: white;
+}
