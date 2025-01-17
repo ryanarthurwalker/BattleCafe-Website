@@ -100,7 +100,7 @@ signUpForm.addEventListener('submit', (e) => {
         document.getElementById('participant-name').value = '';
         downloadButton.style.display = 'block'; // Show download button after the first sign-up
     } else {
-        alert('Name is empty or already signed up.');
+        alert('Name is empty or already signed up. | 名字为空或已注册。');
     }
 });
 

@@ -101,3 +101,13 @@ tr:nth-child(even) {
     margin: 5px 0;
     color: white;
 }
+
+label, th, td {
+    display: flex;
+    justify-content: space-between;
+}
+
+label span, th span, td span {
+    margin-left: 10px;
+    color: #aaa;
+}

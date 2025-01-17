@@ -8,93 +8,85 @@
 </head>
 <body>
     <div class="container">
-        <h1>BattleCafe Tournament Sign-up</h1>
-        <a href="#" id="admin-link" class="admin-link">Admin</a>
+        <h1>BattleCafe Tournament Sign-up | 战咖 锦标赛注册</h1>
+        <a href="#" id="admin-link" class="admin-link">Admin | 管理员</a>
 
         <!-- Admin Login Section -->
         <div id="admin-login" style="display:none;">
-            <h2>Admin Login</h2>
-            <input type="text" id="admin-id" placeholder="Enter Admin ID" required>
-            <input type="password" id="admin-password" placeholder="Enter Admin Password" required>
-            <button id="admin-login-button">Login</button>
-            <button id="close-admin-login">Close</button>
+            <h2>Admin Login | 管理员登录</h2>
+            <input type="text" id="admin-id" placeholder="Enter Admin ID | 输入管理员ID" required>
+            <input type="password" id="admin-password" placeholder="Enter Admin Password | 输入管理员密码" required>
+            <button id="admin-login-button">Login | 登录</button>
+            <button id="close-admin-login">Close | 关闭</button>
         </div>
 
-        <!-- Tournament Creation Form (Only for Admin) -->
+        <!-- Tournament Creation Form -->
         <form id="create-tournament-form" style="display:none;">
-            <h2>Create a Tournament</h2>
-            <input type="text" id="tournament-name" placeholder="Tournament Name" required>
+            <h2>Create a Tournament | 创建一个比赛</h2>
+            <input type="text" id="tournament-name" placeholder="Tournament Name | 锦标赛名称" required>
             <input type="datetime-local" id="tournament-date" required>
-            <textarea id="tournament-description" placeholder="Tournament Description" rows="3" required></textarea>
-            <button type="submit">Create Tournament</button>
-            <button type="button" id="remove-tournament-button">Remove Tournament</button>
+            <textarea id="tournament-description" placeholder="Tournament Description | 锦标赛说明" rows="3" required></textarea>
+            <button type="submit">Create Tournament | 创建锦标赛</button>
+            <button type="button" id="remove-tournament-button">Remove Tournament | 移除锦标赛</button>
         </form>
 
-        <!-- Schedule Section (Admin Only) -->
-<h2>Tournament Schedule</h2>
-<form id="create-schedule-form" style="display:none;">
-    <label>Week:</label>
-    <input type="number" id="week-number" placeholder="Enter Week Number" required>
-    <label>Date Range:</label>
-    <input type="text" id="date-range" placeholder="Enter Date Range (e.g., Jan 15–21)" required>
-    <label>Player 1:</label>
-    <input type="text" id="schedule-player1" placeholder="Enter Player 1" required>
-    <label>Player 2:</label>
-    <input type="text" id="schedule-player2" placeholder="Enter Player 2" required>
-    <button type="submit">Add Matchup</button>
-    <button onclick="clearSchedule()">Clear Schedule</button>
-</form>
+        <!-- Schedule Section -->
+        <h2>Tournament Schedule | 锦标赛计划表</h2>
+        <form id="create-schedule-form" style="display:none;">
+            <label>Week | 周:</label>
+            <input type="number" id="week-number" placeholder="Enter Week Number | 输入周编号" required>
+            <label>Date Range | 日期范围:</label>
+            <input type="text" id="date-range" placeholder="Enter Date Range (e.g., Jan 15–21) | 输入日期范围（例如，1月15日至21日）" required>
+            <label>Player 1 | 选手1:</label>
+            <input type="text" id="schedule-player1" placeholder="Enter Player 1 | 输入选手1" required>
+            <label>Player 2 | 选手2:</label>
+            <input type="text" id="schedule-player2" placeholder="Enter Player 2 | 输入选手2" required>
+            <button type="submit">Add Matchup | 添加比赛</button>
+            <button onclick="clearSchedule()">Clear Schedule | 清除计划表</button>
+        </form>
 
-        <!-- Sign-up Form (Visible to All Users) -->
+        <!-- Sign-up Form -->
         <form id="sign-up-form">
-            <h2>Join the Tournament</h2>
-            <p id="tournament-details">No tournament has been created yet.</p>
-            <input type="text" id="participant-name" placeholder="Enter your name" required>
-            <button type="submit">Sign Up</button>
+            <h2>Join the Tournament | 加入锦标赛</h2>
+            <p id="tournament-details">No tournament has been created yet. | 目前还没有举办任何锦标赛。</p>
+            <input type="text" id="participant-name" placeholder="Enter your name | 输入您的姓名" required>
+            <button type="submit">Sign Up | 注册</button>
         </form>
 
-        <h2>Participants List</h2>
+        <h2>Participants List | 参与者列表</h2>
         <ul id="participants-list"></ul>
-
-        <button id="download-names" style="display:none;">Download List as .txt</button>
+        <button id="download-names" style="display:none;">Download List as .txt | 下载列表 (.txt)</button>
 
         <!-- Leaderboard Section -->
-        <h2>Leaderboard</h2>
+        <h2>Leaderboard | 积分榜</h2>
         <table id="leaderboard-table">
             <thead>
                 <tr>
-                    <th>Rank</th>
-                    <th>Player</th>
-                    <th>Matches Played</th>
-                    <th>Points</th>
+                    <th>Rank | 排名</th>
+                    <th>Player | 选手</th>
+                    <th>Matches Played | 进行过的比赛</th>
+                    <th>Points | 分数</th>
                 </tr>
             </thead>
             <tbody id="leaderboard-body"></tbody>
         </table>
 
-<h3>Weekly Schedule</h3>
-<div id="schedule-list">
-    <p>No schedule has been created yet.</p>
-</div>
-
         <!-- Player Match Reporting Section -->
-        <h2>Report a Match</h2>
+        <h2>Report a Match | 报告一场比赛</h2>
         <form id="player-report-form">
-            <label>Player 1:</label>
-            <input type="text" id="player1-report" placeholder="Enter your name (Player 1)" required>
-            <label>Player 2:</label>
-            <input type="text" id="player2-report" placeholder="Enter opponent's name (Player 2)" required>
-            <label>Score (Best of 5):</label>
-            <input type="text" id="player-score-report" placeholder="e.g., 3-2" required>
-            <button type="submit">Submit Match Report</button>
+            <label>Player 1 | 选手1:</label>
+            <input type="text" id="player1-report" placeholder="Enter your name (Player 1) | 请输入您的姓名（选手1）" required>
+            <label>Player 2 | 选手2:</label>
+            <input type="text" id="player2-report" placeholder="Enter opponent's name (Player 2) | 输入对手的姓名（选手2）" required>
+            <label>Score (Best of 5) | 得分（BO5）:</label>
+            <input type="text" id="player-score-report" placeholder="e.g., 3-2 | 例如，3-2" required>
+            <button type="submit">Submit Match Report | 提交比赛报告</button>
         </form>
 
-        <!-- Pending Matches Section -->
-        <h2>Pending Matches</h2>
+        <h2>Pending Matches | 即将开始的比赛</h2>
         <ul id="pending-matches"></ul>
     </div>
 
-    <!-- Script at the end of body -->
     <script src="script.js"></script>
 </body>
 </html>
